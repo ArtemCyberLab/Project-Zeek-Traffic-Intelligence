@@ -26,9 +26,30 @@ All steps were executed manually using Zeek and standard command-line tools; the
 
 Next steps (planned for Part 2): continue with scripted Zeek analysis to count connection events and signature hits, aggregate findings, and produce an expanded report that includes extracted files, hashes, and any IOC correlations.
 
+(PART-2)
+Goal: continue pcap analysis to extract artifacts (new connections, signature hits, intel/file-framework results, cleartext credentials steps).
+
+Environment: working in ~/Desktop/Exercise-Files (folders: TASK-7/101,201,202, TASK-8, TASK-9).
+
+Key actions & results
+
+Counted new connections: zeek ... 103.zeek → 87 "New Connection Found!".
+FTP signature search: grep "administrator" signatures.log → 731 occurrences; specific signature #FTP-Admin → 0 hits.
+FTP brute‑force detector: system script → notice.log lines → 11 notices.
+Intelligence framework on case1.pcap: second match in HTTP::IN_HOST_HEADER.
+HTTP download: detected /knr.exe.
+MD5 of downloaded .exe: cc28e40b46237ab6d5282199ef78c464.
+Extracted text file contained "Microsoft NCSI".
+zeek-sniffpass module missing (failed to run); recommendation: install via zkg install zeek-sniffpass (or copy it) to extract cleartext credentials.
+
+Logs produced: conn.log, http.log, files.log, signatures.log, notice.log, extract_files/*, etc.
 
 
 
+
+
+
+****************************************************************************************************************************************************************************************************************
 Objetivo do projeto: analisar capturas de rede (PCAPs) com Zeek para detectar eventos HTTP e FTP e extrair informações de hosts via DHCP.
 
 Resumo das ações realizadas (Parte 1):
@@ -56,3 +77,23 @@ A análise DHCP forneceu um inventário útil de nomes de hosts e domínios pres
 Todos os passos foram executados manualmente usando Zeek e ferramentas de linha de comando; os comandos e assinaturas são reproduzíveis e podem ser aplicados a outras capturas.
 
 Próximos passos (planejados para a Parte 2): continuar com análises Zeek por script para contar eventos de conexão e hits de assinaturas, agregar os achados e produzir um relatório expandido que inclua arquivos extraídos, hashes e correlações de IOCs.
+
+PARTE-2 
+Objetivo: continuar a análise de pcaps para extrair artefatos (novas conexões, hits de assinatura, resultados de frameworks de inteligência/arquivos, passos para credenciais em texto claro).
+
+Ambiente: trabalhando em ~/Desktop/Exercise-Files (pastas: TASK-7/101,201,202, TASK-8, TASK-9).
+
+Principais ações e resultados
+
+Contagem de novas conexões: zeek ... 103.zeek → 87 "New Connection Found!".
+Busca de assinatura FTP: grep "administrator" signatures.log → 731 ocorrências; assinatura específica #FTP-Admin → 0 hits.
+Detector de brute‑force FTP: script do sistema → linhas de notice.log → 11 avisos.
+Framework de inteligência em case1.pcap: segundo match em HTTP::IN_HOST_HEADER.
+Download HTTP detectado: /knr.exe.
+MD5 do .exe baixado: cc28e40b46237ab6d5282199ef78c464.
+Arquivo de texto extraído contém "Microsoft NCSI".
+Módulo zeek-sniffpass ausente (falha ao rodar); recomendação: instalar via zkg install zeek-sniffpass (ou copiar) para extrair credenciais em texto claro.
+
+Logs produzidos: conn.log, http.log, files.log, signatures.log, notice.log, extract_files/*, etc.
+
+
